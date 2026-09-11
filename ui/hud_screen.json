@@ -1,0 +1,162 @@
+{
+  "namespace": "hud",
+  "hud_screen": {
+    "type": "screen",
+    "controls": [
+      {
+        "hud_root": {
+          "type": "panel",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "size": ["100%", "100%"],
+          "controls": [
+            {
+              "inventory_panel": {
+                "type": "panel",
+                "anchor_from": "bottom_middle",
+                "anchor_to": "bottom_middle",
+                "offset": [0, -10],
+                "size": ["70%", "15%"],
+                "controls": [
+                  {
+                    "inventory_grid": {
+                      "type": "grid",
+                      "grid_dimensions": [9, 1],
+                      "grid_item_template": "hud.inventory_slot",
+                      "collection_name": "hotbar_items"
+                    }
+                  },
+                  {
+                    "inventory_text_slice_label": {
+                      "type": "label",
+                      "text": "#inventory_text_slice",
+                      "anchor_from": "top_middle",
+                      "anchor_to": "top_middle",
+                      "offset": [0, 2],
+                      "color": [1.0, 1.0, 1.0],
+                      "shadow": true,
+                      "font_size": "small",
+                      "font_scale_factor": 0.6,
+                      "size": ["100%", "default"],
+                      "max_size": ["100%", "default"],
+                      "notify_on_ellipses": ["inventory_text_preserved"],
+                      "bindings": [
+                        {
+                          "binding_name": "#layout/InventoryItemName",
+                          "binding_name_override": "#inventory_item_name_full",
+                          "binding_type": "global"
+                        },
+                        {
+                          "binding_type": "view",
+                          "source_property_name": "('%.16s' * #inventory_item_name_full)",
+                          "target_property_name": "#inventory_text_slice"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "inventory_text_preserved": {
+                      "type": "label",
+                      "text": "#inventory_item_name_full",
+                      "visible": false,
+                      "bindings": [
+                        {
+                          "binding_type": "view",
+                          "source_property_name": "#using_ellipses",
+                          "target_property_name": "#visible"
+                        },
+                        {
+                          "binding_name": "#layout/InventoryItemName",
+                          "binding_name_override": "#inventory_item_name_full",
+                          "binding_type": "global"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "inventory_slot": {
+      "type": "panel",
+      "size": ["100%", "100%"],
+      "controls": [
+        {
+          "slot_background": {
+            "type": "image",
+            "texture": "textures/ui/cell_image",
+            "size": ["100%", "100%"]
+          }
+        },
+        {
+          "item_renderer": {
+            "type": "custom",
+            "renderer": "inventory_item_renderer",
+            "size": ["70%", "70%"],
+            "anchor_from": "center",
+            "anchor_to": "center"
+          }
+        }
+      ]
+    },
+    "variables": [
+      {
+        "requires": "Pocket",
+        "$inventory_panel_size": ["90%", "12%"],
+        "$inventory_panel_offset": [0, -5],
+        "$inventory_text_font_scale": 0.5
+      },
+      {
+        "requires": "Desktop",
+        "$inventory_panel_size": ["60%", "15%"],
+        "$inventory_panel_offset": [0, -10],
+        "$inventory_text_font_scale": 0.65
+      }
+    ],
+    "pocket_profile": {
+      "inventory_panel": {
+        "size": "$inventory_panel_size",
+        "offset": "$inventory_panel_offset"
+      },
+      "inventory_text_slice_label": {
+        "font_scale_factor": "$inventory_text_font_scale",
+        "bindings": [
+          {
+            "binding_name": "#layout/InventoryItemName",
+            "binding_name_override": "#inventory_item_name_full",
+            "binding_type": "global"
+          },
+          {
+            "binding_type": "view",
+            "source_property_name": "('%.16s' * #inventory_item_name_full)",
+            "target_property_name": "#inventory_text_slice"
+          }
+        ]
+      }
+    },
+    "desktop_profile": {
+      "inventory_panel": {
+        "size": "$inventory_panel_size",
+        "offset": "$inventory_panel_offset"
+      },
+      "inventory_text_slice_label": {
+        "font_scale_factor": "$inventory_text_font_scale",
+        "bindings": [
+          {
+            "binding_name": "#layout/InventoryItemName",
+            "binding_name_override": "#inventory_item_name_full",
+            "binding_type": "global"
+          },
+          {
+            "binding_type": "view",
+            "source_property_name": "('%.16s' * #inventory_item_name_full)",
+            "target_property_name": "#inventory_text_slice"
+          }
+        ]
+      }
+    }
+  }
+}
