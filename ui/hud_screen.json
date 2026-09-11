@@ -1,0 +1,128 @@
+{
+  "namespace": "hud",
+  "version": "1.16.100",
+  "hud_screen": {
+    "type": "screen",
+    "controls": [
+      {
+        "name": "hud_root",
+        "type": "panel",
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "offset": [0, 0],
+        "size": ["100%", "100%"],
+        "controls": [
+          {
+            "name": "inventory_panel",
+            "type": "panel",
+            "anchor_from": "bottom_middle",
+            "anchor_to": "bottom_middle",
+            "offset": [0, "-10px"],
+            "size": ["70%", "15%"],
+            "controls": [
+              {
+                "name": "inventory_grid",
+                "type": "grid",
+                "grid_dimensions": [9, 1],
+                "grid_item_size": ["11%", "100%"],
+                "controls": [
+                  {
+                    "name": "inventory_slot_template",
+                    "type": "panel",
+                    "size": ["100%", "100%"],
+                    "controls": [
+                      {
+                        "name": "slot_background",
+                        "type": "image",
+                        "texture": "textures/ui/blank_slot",
+                        "size": ["100%", "100%"],
+                        "alpha": 0.8
+                      },
+                      {
+                        "name": "item_icon",
+                        "type": "image",
+                        "texture": "#layout/InventoryItemIcon",
+                        "size": ["70%", "70%"],
+                        "anchor_from": "center",
+                        "anchor_to": "center"
+                      },
+                      {
+                        "name": "item_count",
+                        "type": "label",
+                        "text": "#layout/InventoryItemCount",
+                        "anchor_from": "bottom_right",
+                        "anchor_to": "bottom_right",
+                        "offset": ["-2px", "-2px"],
+                        "font_size": "0.7",
+                        "color": [1, 1, 1, 1],
+                        "shadow": true
+                      },
+                      {
+                        "name": "#inventory_text_slice",
+                        "type": "label",
+                        "text": "#layout/InventoryItemName",
+                        "anchor_from": "top_middle",
+                        "anchor_to": "top_middle",
+                        "offset": [0, "2px"],
+                        "font_size": "0.6",
+                        "color": [1, 1, 1, 1],
+                        "shadow": true,
+                        "max_length": 16,
+                        "truncate": "end",
+                        "ellipsis": true,
+                        "bindings": [
+                          {
+                            "binding_name": "#layout/InventoryItemName",
+                            "binding_name_alternate": "",
+                            "resolved_name": "item_name"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#layout/InventoryItemName",
+        "binding_type": "global",
+        "binding_name_alternate": "item_name"
+      },
+      {
+        "binding_name": "#layout/InventoryItemIcon",
+        "binding_type": "global",
+        "binding_name_alternate": "item_icon"
+      },
+      {
+        "binding_name": "#layout/InventoryItemCount",
+        "binding_type": "global",
+        "binding_name_alternate": "item_count"
+      }
+    ],
+    "pocket_profile": {
+      "inventory_panel": {
+        "size": ["90%", "12%"],
+        "offset": [0, "-5px"]
+      },
+      "#inventory_text_slice": {
+        "font_size": "0.5",
+        "max_length": 16
+      }
+    },
+    "desktop_profile": {
+      "inventory_panel": {
+        "size": ["60%", "15%"],
+        "offset": [0, "-10px"]
+      },
+      "#inventory_text_slice": {
+        "font_size": "0.65",
+        "max_length": 16
+      }
+    }
+  }
+}
