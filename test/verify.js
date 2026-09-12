@@ -15,9 +15,15 @@ if (declaration.includes("& DeepInfiniteResolve")) {
   throw new Error("Recursive self-intersection leaked into declaration output");
 }
 
-const fixturePath = join(root, "test", "_invariant_fixture.ts");
+const fixturePath = join(root, "test", `_invariant_fixture_${process.pid}.ts`);
 const fixture = `
 import type { DeepInfiniteResolve, SolvedState, StateGraphNode } from "../src/types/state.js";
+
+type Equal<A, B> =
+  (<T>() => T extends A ? 1 : 2) extends
+  (<T>() => T extends B ? 1 : 2) ? true : false;
+type Expect<T extends true> = T;
+type HasPush<T> = T extends { push(...items: any[]): number } ? true : false;
 
 type D0 = SolvedState;
 type D1 = D0["next"];
@@ -37,11 +43,34 @@ type C0 = ReturnType<SolvedState["compute"]>;
 type C1 = ReturnType<C0["compute"]>;
 type C2 = ReturnType<C1["compute"]>;
 
-type ArrayState = DeepInfiniteResolve<{ values: StateGraphNode[] }>;
-type ArrayValueId = ArrayState["values"][number]["id"];
+type DeepNextId = Expect<Equal<D12["id"], string>>;
+type DeepComputeId = Expect<Equal<C2["id"], string>>;
 
-const assertions: [D12["id"], C2["id"], ArrayValueId] = ["", "", ""];
-void assertions;
+type MutableArray = DeepInfiniteResolve<StateGraphNode[]>;
+type ReadonlyArray = DeepInfiniteResolve<readonly StateGraphNode[]>;
+type MutableArrayPreserved = Expect<Equal<HasPush<MutableArray>, true>>;
+type ReadonlyArrayPreserved = Expect<Equal<HasPush<ReadonlyArray>, false>>;
+
+type Tuple = DeepInfiniteResolve<
+  readonly [() => StateGraphNode, { readonly node?: StateGraphNode }]
+>;
+type TupleLengthPreserved = Expect<Equal<Tuple["length"], 2>>;
+type TupleComputeId = Expect<Equal<ReturnType<Tuple[0]>["id"], string>>;
+
+declare const mutableNodes: MutableArray;
+mutableNodes.push({} as MutableArray[number]);
+
+declare let tupleValue: Tuple[1];
+// @ts-expect-error the readonly modifier must survive recursive mapping
+tupleValue.node = {} as StateGraphNode;
+
+export type Assertions =
+  | DeepNextId
+  | DeepComputeId
+  | MutableArrayPreserved
+  | ReadonlyArrayPreserved
+  | TupleLengthPreserved
+  | TupleComputeId;
 `;
 
 writeFileSync(fixturePath, fixture);
