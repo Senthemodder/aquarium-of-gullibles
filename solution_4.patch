@@ -1,0 +1,14 @@
+- registerInspectCommand();
++ system.beforeEvents.serverStarting.subscribe(() => {
++     const CustomCommandRegistry = (globalThis as any).minecraft.server.CustomCommandRegistry;
++     if (CustomCommandRegistry) {
++         CustomCommandRegistry.registerCommand({
++             name: "inspect",
++             description: "Inspect the block or entity.",
++             permissionLevel: 2,
++             handler: (command: string[], source: Player): void => {
++                 // Command handler logic
++             }
++         });
++     }
++ });
