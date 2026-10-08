@@ -1,0 +1,17 @@
+- registerInspectCommand();
++ import { CommandRegistrationContext } from '@minecraft/server';
++ import { CustomCommand } from '@minecraft/server';
+
+- function registerInspectCommand() {
++ function registerInspectCommand(context: CommandRegistrationContext) {
+-    CustomCommandRegistry.registerCommand(new CustomCommand('/inspect', inspectCommandHandler));
++    context.registerCommand(new CustomCommand('/inspect', inspectCommandHandler));
++ }
+
+- function inspectCommandHandler() {
++ function inspectCommandHandler(sender: CustomCommandSender) {
++    if (!sender.hasPermission(CommandPermissionLevel.ADMIN)) {
++        throw new Error('Insufficient permissions to use /inspect');
++    }
++    // Handle command logic here
++ }
