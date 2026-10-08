@@ -1,0 +1,13 @@
+diff --git a/scripts/commands/inspect.ts b/scripts/commands/inspect.ts
+index 1234567..89abcde 100644
+--- a/scripts/commands/inspect.ts
++++ b/scripts/commands/inspect.ts
+@@ -21,7 +21,7 @@ import { CommandPermissionLevel } from '@minecraft/server';
+ 
+ // Register the inspect command
+ function registerInspectCommand() {
+-    CustomCommandRegistry.registerCommand('inspect', {
++    CustomCommandManager.registerCommand('inspect', {
+         handler: (source, command) => {
+             const player = source.player;
+             if (player) {
