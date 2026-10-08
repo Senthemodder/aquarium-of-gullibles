@@ -1,0 +1,2 @@
+-        CustomCommandRegistry.registerCommand(new InspectCommand());
++        CustomCommandRegistry.registerCommand(new InspectCommand(), CommandPermissionLevel.OP);
