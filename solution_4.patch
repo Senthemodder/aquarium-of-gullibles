@@ -1,0 +1,5 @@
+- CustomCommandRegistry.registerCommand(InspectCommand);
++ CustomCommandRegistry.registerCommand({
++   command: InspectCommand,
++   permissionLevel: 2,
++ });
