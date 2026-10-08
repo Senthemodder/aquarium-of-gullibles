@@ -1,0 +1,7 @@
+- CustomCommandRegistry.registerCommand(inspectCommand);
++ CustomCommandRegistry.registerCommand({
++   command: "inspect",
++   description: "Inspect the item or entity.",
++   handler: inspectCommand,
++   permissionLevel: 1
++ });
