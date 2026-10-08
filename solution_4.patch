@@ -1,0 +1,9 @@
+- registerInspectCommand();
++ system.commands.register({
++     command: 'inspect',
++     description: 'Inspect items and entities',
++     permissions: [CommandPermissionLevel.ALL],
++     handler: async (player) => {
++         // Implement your command logic here
++     }
++ });
