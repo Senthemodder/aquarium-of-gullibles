@@ -1,0 +1,45 @@
+{
+  "namespace": "hud_screen",
+  "hud_screen_content": {
+    "type": "panel",
+    "controls": [
+      // ... other controls ...
+
+      // Locate the specific label/text control that displays the inventory item name.
+      // This is a placeholder structure; you will need to find the actual element in your file.
+      {
+        "inventory_item_name_label": { // Replace with your actual label ID
+          "type": "label",
+          "text": "#inventory_text_slice",
+          "hover_text": "#inventory_text_full", // New: For text preservation
+          "bindings": [
+            {
+              "binding_name": "#inventory_text_slice",
+              "binding_type": "global", // Adjust type if needed (e.g., "collection")
+              // Updated Molang expression for truncation
+              // Assumes 'variable.item_name' holds the full item name.
+              "source_property_name": "query.str_len(variable.item_name) > 16 ? query.str_sub(variable.item_name, 0, 16) + '...' : variable.item_name"
+            },
+            {
+              "binding_name": "#inventory_text_full", // New: Binding for the full text
+              "binding_type": "global", // Adjust type if needed
+              "source_property_name": "variable.item_name" // Assumes 'variable.item_name' holds the full item name
+            }
+            // IMPORTANT: Ensure 'variable.item_name' is correctly populated elsewhere in your UI or game logic.
+            // If 'variable.item_name' is populated by another binding, that binding should remain.
+            // Example of an existing binding that might populate 'variable.item_name':
+            // {
+            //   "binding_name": "#item_data_source",
+            //   "binding_type": "collection",
+            //   "collection_name": "inventory_items",
+            //   "source_property_name": "name", // Or whatever property holds the item name
+            //   "target_property_name": "variable.item_name"
+            // }
+          ]
+        }
+      }
+
+      // ... other controls ...
+    ]
+  }
+}
