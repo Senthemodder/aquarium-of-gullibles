@@ -1,0 +1,16 @@
+{
+  "namespace": "hud",
+  "inventory_text_label": {
+    "type": "label",
+    "text": "$inventory_text_binding",
+    "max_length": 16,
+    "clip_text": true,
+    "text_alignment": "left",
+    "bindings": [
+      {
+        "binding_name": "#inventory_text_binding",
+        "binding_name_parameter": "#inventory_text_slice"
+      }
+    ]
+  }
+}
