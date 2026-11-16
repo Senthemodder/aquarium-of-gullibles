@@ -1,0 +1,70 @@
+{
+  "namespace": "hud",
+  "version": "0.1.0",
+  "controls": [
+    {
+      "type": "stack_panel",
+      "orientation": "vertical",
+      "size": ["100%", "100%"],
+      "controls": [
+        {
+          "type": "label",
+          "text": "Inventory",
+          "font_size": "medium",
+          "color": "#FFFFFF"
+        },
+        {
+          "type": "scroll_view",
+          "size": ["100%", "100%"],
+          "controls": [
+            {
+              "type": "stack_panel",
+              "orientation": "vertical",
+              "size": ["100%", "auto"],
+              "controls": [
+                {
+                  "type": "grid",
+                  "orientation": "vertical",
+                  "grid_layout": {
+                    "columns": 2,
+                    "rows": "auto"
+                  },
+                  "controls": [
+                    {
+                      "type": "stack_panel",
+                      "orientation": "horizontal",
+                      "size": ["100%", "auto"],
+                      "controls": [
+                        {
+                          "type": "label",
+                          "text": "Item Name:",
+                          "font_size": "small",
+                          "color": "#CCCCCC"
+                        },
+                        {
+                          "type": "label",
+                          "text": "${#inventory_item_name}",
+                          "font_size": "small",
+                          "color": "#FFFFFF",
+                          "bindings": [
+                            {
+                              "binding_name": "text",
+                              "binding_type": "global",
+                              "source_property": "#inventory_item_name",
+                              "target_property": "text",
+                              "on_data_changed": "return text.substring(0, 16);"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
